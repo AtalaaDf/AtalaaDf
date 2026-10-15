@@ -1,4 +1,5 @@
 import Navbar from './components/layout/Navbar'
+import HeroSection from './components/sections/hero/HeroSection'
 
 function App() {
   return (
@@ -6,9 +7,7 @@ function App() {
       <Navbar />
 
       <main>
-        <section id="home" className="min-h-screen flex items-center justify-center">
-          {/* Section Hero akan diimplementasikan pada langkah berikutnya */}
-        </section>
+        <HeroSection />
 
         <section id="about" className="min-h-screen flex items-center justify-center">
           {/* Section About */}
