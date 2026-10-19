@@ -5,6 +5,7 @@ import ConnectorSection from './components/sections/connector/ConnectorSection'
 import AboutSection from './components/sections/about/AboutSection'
 import ProjectsSection from './components/sections/projects/ProjectsSection'
 import ContactSection from './components/sections/contact/ContactSection'
+import Footer from './components/layout/Footer'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <ProjectsSection />
         <ContactSection />
       </main>
+      <Footer />
     </div>
   )
 }
