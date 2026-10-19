@@ -5,11 +5,11 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen w-full items-center overflow-hidden bg-base pt-20 lg:pt-0"
+      className="relative flex min-h-0 w-full items-center overflow-hidden bg-base pt-20 pb-8 lg:min-h-screen lg:pt-0 lg:pb-0"
     >
-      <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2">
+      <div className="grid w-full grid-cols-1 items-center gap-4 sm:gap-8 lg:grid-cols-2">
         <HeroLeftColumn />
-        <HomeShapes />
+        <HomeShapes className="hidden lg:flex" />
       </div>
     </section>
   )

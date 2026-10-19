@@ -44,7 +44,7 @@ export default function OrbitingShapeItem({
         <img
           src={shape.asset}
           alt={shape.name}
-          className="w-[10vw] max-w-[260px] min-w-[120px] h-auto object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.85)] filter drop-shadow-[0_0_45px_rgba(180,220,230,0.55)]"
+          className="h-auto w-[18vw] min-w-[72px] max-w-[260px] object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.85)] filter drop-shadow-[0_0_45px_rgba(180,220,230,0.55)] sm:w-[14vw] sm:min-w-[100px] lg:w-[10vw] lg:min-w-[120px]"
           draggable={false}
         />
       </div>

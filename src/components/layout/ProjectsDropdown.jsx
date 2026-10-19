@@ -2,7 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LuHouse, LuBriefcase, LuPhone } from 'react-icons/lu'
 import { PROJECTS_DROPDOWN_LINKS } from '../../data/navLinks'
+import { PROJECTS_QUARTERS_DATA } from '../../data/projects'
 import { dropdownVariants } from '../../animations/navbar'
+import { useProjectQuarter } from '../../hooks/ProjectQuarterContext'
 
 const DROPDOWN_ICONS = {
   home: LuHouse,
@@ -13,6 +15,7 @@ const DROPDOWN_ICONS = {
 export default function ProjectsDropdown({ onSelectSection }) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
+  const { setSelectedQuarterId } = useProjectQuarter()
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,6 +35,15 @@ export default function ProjectsDropdown({ onSelectSection }) {
 
   const handleSelect = (id) => {
     onSelectSection(id)
+    setIsOpen(false)
+  }
+
+  const handleSelectQuarter = (quarterId) => {
+    setSelectedQuarterId(quarterId)
+    document.getElementById('projects')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
     setIsOpen(false)
   }
 
@@ -69,7 +81,7 @@ export default function ProjectsDropdown({ onSelectSection }) {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="absolute top-[calc(100%+12px)] -right-2 flex flex-col gap-1 rounded-2xl border border-white/20 bg-glass/95 p-1.5 shadow-2xl backdrop-blur-md min-w-[140px]"
+            className="absolute top-[calc(100%+12px)] -right-2 hidden min-w-[140px] flex-col gap-1 rounded-2xl border border-white/20 bg-glass/95 p-1.5 shadow-2xl backdrop-blur-md lg:flex"
           >
             {PROJECTS_DROPDOWN_LINKS.map((item) => {
               const IconComp = DROPDOWN_ICONS[item.id]
@@ -86,6 +98,29 @@ export default function ProjectsDropdown({ onSelectSection }) {
                 </li>
               )
             })}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.ul
+            variants={dropdownVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="absolute top-[calc(100%+12px)] right-0 flex min-w-[190px] flex-col gap-1 rounded-2xl border border-white/20 bg-glass/95 p-1.5 shadow-2xl backdrop-blur-md lg:hidden"
+          >
+            {PROJECTS_QUARTERS_DATA.map((quarter) => (
+              <li key={quarter.id}>
+                <button
+                  type="button"
+                  onClick={() => handleSelectQuarter(quarter.id)}
+                  className="flex w-full items-center rounded-xl px-3 py-2 text-left font-sans text-xs font-medium text-white/80 transition-colors hover:bg-white/15 hover:text-white"
+                >
+                  Project {quarter.quarter}
+                </button>
+              </li>
+            ))}
           </motion.ul>
         )}
       </AnimatePresence>

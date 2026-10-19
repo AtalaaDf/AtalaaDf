@@ -2,13 +2,13 @@ import { CONNECTOR_SHAPES_CONFIG } from '../../../data/shapeLayouts'
 
 export default function ConnectorShapes() {
   return (
-    <div className="relative w-full flex items-center justify-center py-12 overflow-hidden">
+    <div className="relative flex w-full items-center justify-center overflow-hidden py-8 sm:py-12">
       <div className="relative w-full max-w-[1200px] mx-auto flex items-center justify-between px-[8%]">
         {CONNECTOR_SHAPES_CONFIG.map((item) => (
           <div
             key={item.id}
-            className="flex items-center justify-center"
-            style={{ width: `${item.widthVw}vw`, minWidth: '80px' }}
+            className="flex min-w-[40px] items-center justify-center sm:min-w-[56px] lg:min-w-[80px]"
+            style={{ width: `${item.widthVw}vw` }}
           >
             <img
               src={item.asset}

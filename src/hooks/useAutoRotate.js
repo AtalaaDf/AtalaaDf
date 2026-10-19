@@ -2,15 +2,30 @@ import { useState, useEffect, useRef } from 'react'
 
 export function useAutoRotate({ baseSpeed = 0.003 } = {}) {
   const [rotationAngle, setRotationAngle] = useState(0)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const isDraggingRef = useRef(false)
   const lastPointerXRef = useRef(0)
   const velocityRef = useRef(baseSpeed)
   const animFrameIdRef = useRef(null)
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
+    const mediaQuery = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
-    ).matches
+    )
+    const updateMotionPreference = () => {
+      setPrefersReducedMotion(mediaQuery.matches)
+    }
+
+    updateMotionPreference()
+    mediaQuery.addEventListener('change', updateMotionPreference)
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateMotionPreference)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (prefersReducedMotion) return undefined
 
     let lastTime = performance.now()
 
@@ -18,7 +33,7 @@ export function useAutoRotate({ baseSpeed = 0.003 } = {}) {
       const deltaTime = (currentTime - lastTime) / 16.67
       lastTime = currentTime
 
-      if (!isDraggingRef.current && !prefersReducedMotion) {
+      if (!isDraggingRef.current) {
         velocityRef.current += (baseSpeed - velocityRef.current) * 0.04
         setRotationAngle((prev) => prev + velocityRef.current * deltaTime)
       }
@@ -33,7 +48,7 @@ export function useAutoRotate({ baseSpeed = 0.003 } = {}) {
         cancelAnimationFrame(animFrameIdRef.current)
       }
     }
-  }, [baseSpeed])
+  }, [baseSpeed, prefersReducedMotion])
 
   const handlePointerDown = (e) => {
     isDraggingRef.current = true

@@ -6,12 +6,12 @@ export default function ContactSection() {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="flex min-h-screen w-full flex-col items-center bg-base px-4 pt-32 pb-20 sm:px-8 lg:pt-[8.5vw]"
+      className="flex min-h-0 w-full flex-col items-center bg-base px-4 pt-16 pb-8 sm:px-8 lg:min-h-screen lg:pt-[8.5vw] lg:pb-20"
     >
       <SectionTitle
         id="contact-title"
         fontFamily="sans"
-        className="text-center text-5xl sm:text-6xl lg:text-[3.8vw]"
+        className="text-center text-[clamp(2rem,10vw,3rem)] sm:text-6xl lg:text-[3.8vw]"
       >
         Get in Touch
       </SectionTitle>

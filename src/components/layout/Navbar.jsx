@@ -16,12 +16,12 @@ export default function Navbar() {
   const isProjects = activeSection === 'projects'
 
   return (
-    <header className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none">
+    <header className="pointer-events-none fixed top-3 left-0 right-0 z-50 flex justify-center px-3 sm:top-6 sm:px-0">
       <motion.nav
         variants={navbarPillVariants}
         initial="default"
         animate={isProjects ? 'projects' : 'default'}
-        className="pointer-events-auto relative flex h-12 items-center justify-center rounded-full border border-white/20 bg-glass/85 px-6 shadow-lg backdrop-blur-md"
+        className="pointer-events-auto relative flex h-12 max-w-full items-center justify-center rounded-full border border-white/20 bg-glass/85 px-2 shadow-lg backdrop-blur-md sm:px-6"
         aria-label="Navigasi Utama"
       >
         <AnimatePresence mode="wait">
@@ -43,7 +43,7 @@ export default function Navbar() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex items-center gap-4 sm:gap-7"
+              className="flex items-center gap-1 sm:gap-4 lg:gap-7"
             >
               {NAV_LINKS.map((item) => (
                 <NavMenuItem

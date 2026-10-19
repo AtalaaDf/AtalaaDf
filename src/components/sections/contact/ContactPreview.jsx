@@ -7,7 +7,7 @@ export default function ContactPreview() {
   return (
     <div
       aria-label="Preview tampilan kontak"
-      className="mt-8 w-full max-w-[1240px] sm:mt-10 lg:mt-[1.2vw] lg:w-[65%]"
+      className="mt-4 w-full max-w-[1240px] sm:mt-8 lg:mt-[1.2vw] lg:w-[65%]"
     >
       <div className="flex flex-col gap-5 sm:gap-6">
         {CONTACT_PREVIEW_FIELDS.map((field) => (

@@ -2,22 +2,27 @@ import { AnimatePresence } from 'framer-motion'
 import { PROJECTS_QUARTERS_DATA } from '../../../data/projects'
 import ProjectQuarterPanel from './ProjectQuarterPanel'
 import { useDragProgress } from '../../../hooks/useDragProgress'
+import { useProjectQuarter } from '../../../hooks/ProjectQuarterContext'
 
 export default function ProjectsSection() {
+  const { selectedQuarterId } = useProjectQuarter()
   const { activeQuarter, trackRef, dragProps } = useDragProgress({
     totalQuarters: PROJECTS_QUARTERS_DATA.length,
   })
 
   const currentQuarter = PROJECTS_QUARTERS_DATA[activeQuarter] || PROJECTS_QUARTERS_DATA[0]
+  const selectedQuarter =
+    PROJECTS_QUARTERS_DATA.find((quarter) => quarter.id === selectedQuarterId) ||
+    PROJECTS_QUARTERS_DATA[0]
 
   return (
     <section
       id="projects"
-      className="relative flex min-h-screen w-full items-start overflow-hidden bg-base"
+      className="relative flex min-h-0 w-full items-start bg-base lg:min-h-screen lg:overflow-hidden"
       aria-label="Section Projects"
     >
       {/* Track yang berlanjut dari About, di posisi horizontal yang sama (24.4%) */}
-      <div className="absolute left-[16%] top-0 bottom-0 -translate-x-1/2 z-20 flex flex-col items-center select-none">
+      <div className="absolute left-[16%] top-0 bottom-0 z-20 hidden -translate-x-1/2 select-none flex-col items-center lg:flex">
         <div
           ref={trackRef}
           {...dragProps}
@@ -53,10 +58,18 @@ export default function ProjectsSection() {
       </div>
 
       {/* Konten quarter di kanan track */}
-      <div className="w-full flex flex-col items-center py-24 pl-[20%] pr-6 sm:pr-12">
+      <div className="hidden w-full flex-col items-center py-24 pl-[20%] pr-12 lg:flex">
         <AnimatePresence mode="wait">
           <ProjectQuarterPanel key={currentQuarter.id} quarterData={currentQuarter} />
         </AnimatePresence>
+      </div>
+      <div className="flex w-full flex-col gap-8 px-5 py-6 sm:px-8 lg:hidden">
+        <div id={`project-${selectedQuarter.id}`} className="scroll-mt-20">
+          <ProjectQuarterPanel
+            key={selectedQuarter.id}
+            quarterData={selectedQuarter}
+          />
+        </div>
       </div>
     </section>
   )
