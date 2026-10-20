@@ -6,7 +6,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative flex min-h-0 w-full flex-col overflow-hidden bg-base lg:min-h-screen lg:flex-row"
+      className="relative flex min-h-0 w-full flex-col overflow-x-clip lg:overflow-visible bg-base lg:min-h-screen lg:flex-row"
       aria-label="Section About"
     >
       {/* Shapes */}
