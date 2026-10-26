@@ -7,7 +7,7 @@ import {
   CONNECTOR_ACAKAN_1,
   CONNECTOR_ACAKAN_2,
 } from '../../../data/shapeLayouts'
-import { GLOW_ASSETS } from '../../../data/assets'
+
 import {
   STAGE_SPRING,
   connectorShapesEnter,
