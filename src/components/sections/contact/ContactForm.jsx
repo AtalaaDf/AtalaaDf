@@ -1,7 +1,14 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { LuCircleCheck, LuCircleAlert, LuLoaderCircle } from 'react-icons/lu'
-import PillButton from '../../ui/PillButton'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+} from '../../ui/Card'
+import { Input } from '../../ui/Input'
+import { Textarea } from '../../ui/Textarea'
+import { Button } from '../../ui/Button'
 import { sendContactMessage } from '../../../services/contactService'
 import { contactFormSchema } from '../../../utils/contactValidation'
 
@@ -69,159 +76,148 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="mt-8 w-full max-w-full rounded-3xl lg:rounded-[36px] border border-white/10 bg-[#222222]/90 backdrop-blur-md p-6 sm:p-10 lg:w-[48%] shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+    <Card className="mt-8 w-full max-w-[620px]">
       <AnimatePresence mode="wait">
         {status === 'success' ? (
           <motion.div
             key="success-state"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-            className="flex flex-col items-center justify-center py-10 text-center"
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="flex flex-col items-center justify-center p-8 sm:p-12 text-center"
           >
-            <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-emerald-400/20 bg-emerald-400/10 text-emerald-400">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
               <LuCircleCheck className="text-2xl" />
             </div>
-            <h3 className="font-serif text-2xl font-bold text-white mb-2">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-white mb-2">
               Pesan Terkirim
             </h3>
-            <p className="font-sans text-sm text-white/60 max-w-sm leading-relaxed mb-8">
+            <p className="font-sans text-xs sm:text-sm text-white/60 max-w-sm leading-relaxed mb-6">
               Terima kasih telah menghubungi saya. Pesan Anda telah diterima dan akan segera direspons.
             </p>
-            <PillButton
+            <Button
               onClick={handleReset}
-              className="px-7 py-2.5 text-sm"
-              ariaLabel="Kirim pesan lain"
+              variant="outline"
+              size="sm"
+              className="text-xs"
             >
               Kirim Pesan Lain
-            </PillButton>
+            </Button>
           </motion.div>
         ) : (
           <form
             key="form-state"
             onSubmit={handleSubmit}
             noValidate
-            className="flex flex-col gap-5"
           >
-            {/* Field Nama */}
-            <div className="flex flex-col gap-1.5">
-              <label
-                htmlFor="contact-name"
-                className="font-sans text-xs sm:text-sm font-medium text-white/70 tracking-wide"
-              >
-                Nama
-              </label>
-              <input
-                id="contact-name"
-                name="name"
-                type="text"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Nama Anda"
-                disabled={status === 'loading'}
-                className={`w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 font-sans text-sm sm:text-base text-white placeholder:text-white/25 transition-all duration-200 focus:bg-white/[0.06] focus:outline-none focus:ring-0 ${
-                  errors.name
-                    ? 'border-rose-500/70 focus:border-rose-500'
-                    : 'border-white/10 focus:border-white/30'
-                }`}
-              />
-              {errors.name && (
-                <span className="font-sans text-xs text-rose-400 mt-0.5">
-                  {errors.name}
-                </span>
-              )}
-            </div>
-
-            {/* Field Email */}
-            <div className="flex flex-col gap-1.5">
-              <label
-                htmlFor="contact-email"
-                className="font-sans text-xs sm:text-sm font-medium text-white/70 tracking-wide"
-              >
-                Email
-              </label>
-              <input
-                id="contact-email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="nama@email.com"
-                disabled={status === 'loading'}
-                className={`w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 font-sans text-sm sm:text-base text-white placeholder:text-white/25 transition-all duration-200 focus:bg-white/[0.06] focus:outline-none focus:ring-0 ${
-                  errors.email
-                    ? 'border-rose-500/70 focus:border-rose-500'
-                    : 'border-white/10 focus:border-white/30'
-                }`}
-              />
-              {errors.email && (
-                <span className="font-sans text-xs text-rose-400 mt-0.5">
-                  {errors.email}
-                </span>
-              )}
-            </div>
-
-            {/* Field Message */}
-            <div className="flex flex-col gap-1.5">
-              <label
-                htmlFor="contact-message"
-                className="font-sans text-xs sm:text-sm font-medium text-white/70 tracking-wide"
-              >
-                Message
-              </label>
-              <textarea
-                id="contact-message"
-                name="message"
-                rows={5}
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Tuliskan pesan atau ide diskusi Anda di sini..."
-                disabled={status === 'loading'}
-                className={`w-full rounded-xl border bg-white/[0.03] px-4 py-3.5 font-sans text-sm sm:text-base text-white placeholder:text-white/25 transition-all duration-200 focus:bg-white/[0.06] focus:outline-none focus:ring-0 min-h-[140px] resize-y ${
-                  errors.message
-                    ? 'border-rose-500/70 focus:border-rose-500'
-                    : 'border-white/10 focus:border-white/30'
-                }`}
-              />
-              {errors.message && (
-                <span className="font-sans text-xs text-rose-400 mt-0.5">
-                  {errors.message}
-                </span>
-              )}
-            </div>
-
-            {/* Banner Error Pengiriman */}
-            {status === 'error' && (
-              <div className="flex items-center gap-2.5 rounded-xl border border-rose-500/20 bg-rose-500/5 px-4 py-3 text-rose-300">
-                <LuCircleAlert className="text-base flex-shrink-0" />
-                <span className="font-sans text-xs sm:text-sm">
-                  {errorMessage}
-                </span>
+            <CardContent className="space-y-4">
+              {/* Field Nama */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="contact-name"
+                  className="block font-sans text-xs font-medium text-white/70"
+                >
+                  Nama
+                </label>
+                <Input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Nama Anda"
+                  disabled={status === 'loading'}
+                  className={errors.name ? 'border-rose-500/60 focus-visible:border-rose-500' : ''}
+                />
+                {errors.name && (
+                  <p className="font-sans text-xs text-rose-400">
+                    {errors.name}
+                  </p>
+                )}
               </div>
-            )}
 
-            {/* Tombol Kirim di Bawah Kanan */}
-            <div className="flex justify-end pt-2">
-              <PillButton
+              {/* Field Email */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="contact-email"
+                  className="block font-sans text-xs font-medium text-white/70"
+                >
+                  Email
+                </label>
+                <Input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="nama@email.com"
+                  disabled={status === 'loading'}
+                  className={errors.email ? 'border-rose-500/60 focus-visible:border-rose-500' : ''}
+                />
+                {errors.email && (
+                  <p className="font-sans text-xs text-rose-400">
+                    {errors.email}
+                  </p>
+                )}
+              </div>
+
+              {/* Field Message */}
+              <div className="space-y-1.5">
+                <label
+                  htmlFor="contact-message"
+                  className="block font-sans text-xs font-medium text-white/70"
+                >
+                  Pesan
+                </label>
+                <Textarea
+                  id="contact-message"
+                  name="message"
+                  rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tuliskan pesan atau ide diskusi Anda..."
+                  disabled={status === 'loading'}
+                  className={errors.message ? 'border-rose-500/60 focus-visible:border-rose-500' : ''}
+                />
+                {errors.message && (
+                  <p className="font-sans text-xs text-rose-400">
+                    {errors.message}
+                  </p>
+                )}
+              </div>
+
+              {/* Banner Error Pengiriman */}
+              {status === 'error' && (
+                <div className="flex items-center gap-2 rounded-lg border border-rose-500/20 bg-rose-500/10 p-3 text-rose-300">
+                  <LuCircleAlert className="text-base flex-shrink-0" />
+                  <span className="font-sans text-xs">
+                    {errorMessage}
+                  </span>
+                </div>
+              )}
+            </CardContent>
+
+            <CardFooter className="flex justify-end pt-2">
+              <Button
                 type="submit"
                 disabled={status === 'loading'}
-                className="px-8 py-3 text-sm font-medium flex items-center gap-2 tracking-wide"
-                ariaLabel="Kirim formulir pesan"
+                variant="default"
+                size="default"
               >
                 {status === 'loading' ? (
                   <>
-                    <LuLoaderCircle className="animate-spin text-base" />
+                    <LuLoaderCircle className="animate-spin text-sm" />
                     <span>Mengirim...</span>
                   </>
                 ) : (
-                  <span>Kirim</span>
+                  <span>Kirim Pesan</span>
                 )}
-              </PillButton>
-            </div>
+              </Button>
+            </CardFooter>
           </form>
         )}
       </AnimatePresence>
-    </div>
+    </Card>
   )
 }

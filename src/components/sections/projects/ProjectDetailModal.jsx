@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { LuX, LuExternalLink, LuImage } from 'react-icons/lu'
+import { Badge } from '../../ui/Badge'
+import { Button } from '../../ui/Button'
 
 export default function ProjectDetailModal({ project, onClose }) {
   const { title, description, image, technologies = [], visitUrl = '#', quarterLabel, quarterYear } = project
@@ -23,34 +25,34 @@ export default function ProjectDetailModal({ project, onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
       onClick={onClose}
     >
       {/* Backdrop blur */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
 
-      {/* Modal Card */}
+      {/* Modal Dialog Card */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 20 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative z-10 w-full max-w-2xl overflow-hidden rounded-3xl border border-white/15 bg-card shadow-2xl"
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
+        transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 w-full max-w-xl overflow-hidden rounded-xl border border-white/10 bg-[#1c1c1c] shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Tombol Close */}
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 border border-white/20 text-white/80 transition-colors hover:bg-white/15 hover:text-white cursor-pointer backdrop-blur-sm"
+          className="absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-md bg-black/60 border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
           aria-label="Tutup detail project"
         >
-          <LuX className="text-lg" />
+          <LuX className="" />
         </button>
 
         {/* Gambar Project */}
-        <div className="relative aspect-video w-full overflow-hidden bg-black/60">
+        <div className="relative aspect-video w-full overflow-hidden bg-black/50">
           {image ? (
             <img
               src={image}
@@ -58,39 +60,40 @@ export default function ProjectDetailModal({ project, onClose }) {
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex h-full w-full flex-col items-center justify-center gap-3 text-white/30">
-              <LuImage className="text-5xl" aria-hidden="true" />
-              <span className="font-sans text-sm tracking-wider">Preview Gambar</span>
+            <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-white/30">
+              <LuImage className="text-4xl" aria-hidden="true" />
+              <span className="font-sans text-xs tracking-wider">Preview Gambar</span>
             </div>
           )}
 
           {/* Quarter Badge */}
-          <div className="absolute bottom-4 left-4 rounded-full bg-black/60 px-4 py-1.5 backdrop-blur-sm border border-white/15">
-            <span className="font-sans text-xs font-semibold text-white/90 tracking-wide">
-              {quarterYear} -- {quarterLabel}
-            </span>
+          <div className="absolute bottom-3 left-3">
+            <Badge variant="default" className="bg-black/70 backdrop-blur-sm border-white/20 text-xs py-1 px-3">
+              {quarterYear} · {quarterLabel}
+            </Badge>
           </div>
         </div>
 
         {/* Konten Detail */}
-        <div className="p-6 sm:p-8">
-          <h3 className="mb-3 font-serif text-2xl sm:text-3xl font-bold text-white tracking-normal">
+        <div className="p-6">
+          <h3 className="mb-2 font-serif text-xl sm:text-2xl font-bold text-white tracking-normal">
             {title}
           </h3>
 
-          <p className="mb-6 font-sans text-sm leading-relaxed text-white/70">
+          <p className="mb-5 font-sans text-xs sm:text-sm leading-relaxed text-white/65">
             {description}
           </p>
 
           {/* Teknologi */}
-          <div className="mb-6 flex flex-wrap gap-2">
+          <div className="mb-6 flex flex-wrap gap-1.5">
             {technologies.map((tech) => (
-              <span
+              <Badge
                 key={tech}
-                className="rounded-full bg-white/10 px-3 py-1.5 font-sans text-xs sm:text-sm font-medium text-white/85 border border-white/10"
+                variant="secondary"
+                className="text-xs font-normal"
               >
                 {tech}
-              </span>
+              </Badge>
             ))}
           </div>
 
@@ -100,10 +103,12 @@ export default function ProjectDetailModal({ project, onClose }) {
               href={visitUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 font-sans text-sm font-semibold text-white transition-colors hover:bg-white/20 cursor-pointer border border-white/15"
+              tabIndex={-1}
             >
-              <span>Visit Project</span>
-              <LuExternalLink className="text-sm" aria-hidden="true" />
+              <Button size="sm" variant="default" className="flex items-center gap-2 text-xs">
+                <span>Visit Project</span>
+                <LuExternalLink className="text-xs" aria-hidden="true" />
+              </Button>
             </a>
           </div>
         </div>

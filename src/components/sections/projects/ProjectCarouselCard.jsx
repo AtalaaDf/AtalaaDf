@@ -1,4 +1,5 @@
 import { LuImage, LuExternalLink, LuClock } from 'react-icons/lu'
+import { Badge } from '../../ui/Badge'
 
 export default function ProjectCarouselCard({ project, onClick }) {
   const { title, description, image, technologies = [], quarterLabel, quarterYear, isProgress, progressText } = project
@@ -6,31 +7,31 @@ export default function ProjectCarouselCard({ project, onClick }) {
   if (isProgress) {
     return (
       <div
-        className="group relative flex-shrink-0 w-[280px] sm:w-[340px] lg:w-[400px] flex flex-col justify-between overflow-hidden rounded-2xl lg:rounded-3xl border border-dashed border-white/20 bg-card/60 backdrop-blur-sm p-6 lg:p-8 select-none transition-all duration-300 hover:border-white/35"
+        className="group relative flex-shrink-0 w-[280px] sm:w-[340px] lg:w-[400px] flex flex-col justify-between overflow-hidden rounded-xl border border-dashed border-white/20 bg-[#1e1e1e]/60 backdrop-blur-sm p-6 lg:p-8 select-none transition-all duration-300 hover:border-white/35"
       >
         <div className="flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-sans text-[10px] lg:text-xs font-medium text-white/80">
+          <Badge variant="secondary" className="flex items-center gap-1.5 py-1 px-2.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-sans text-[11px] font-medium text-white/80">
               {quarterYear} · {quarterLabel}
             </span>
-          </div>
-          <LuClock className="text-white/40 text-lg" aria-hidden="true" />
+          </Badge>
+          <LuClock className="text-white/40 text-base" aria-hidden="true" />
         </div>
 
         <div className="my-8 text-center">
-          <span className="font-sans text-xl sm:text-2xl lg:text-3xl font-bold tracking-widest text-white/90">
-            {progressText || 'ON PROGRES.....'}
+          <span className="font-sans text-xl sm:text-2xl font-bold tracking-widest text-white/90">
+            {progressText || 'ON PROGRESS.....'}
           </span>
-          <p className="mt-3 font-sans text-xs sm:text-sm text-white/50 leading-relaxed max-w-[260px] mx-auto">
+          <p className="mt-3 font-sans text-xs text-white/50 leading-relaxed max-w-[260px] mx-auto">
             Project untuk quarter ini sedang dalam tahap pengerjaan.
           </p>
         </div>
 
         <div className="flex items-center justify-center">
-          <span className="rounded-full bg-white/5 px-3 py-1 font-sans text-[10px] lg:text-xs font-medium text-white/60 border border-white/10">
+          <Badge variant="outline" className="text-white/60 text-[11px] py-0.5">
             Coming Soon
-          </span>
+          </Badge>
         </div>
       </div>
     )
@@ -47,7 +48,7 @@ export default function ProjectCarouselCard({ project, onClick }) {
           onClick()
         }
       }}
-      className="group relative flex-shrink-0 w-[280px] sm:w-[340px] lg:w-[400px] flex flex-col overflow-hidden rounded-2xl lg:rounded-3xl border border-white/10 bg-card transition-all duration-300 hover:border-white/25 hover:shadow-[0_8px_40px_rgba(255,255,255,0.06)] cursor-pointer select-none"
+      className="group relative flex-shrink-0 w-[280px] sm:w-[340px] lg:w-[400px] flex flex-col overflow-hidden rounded-xl border border-white/10 bg-[#1e1e1e] transition-all duration-300 hover:border-white/25 hover:shadow-md cursor-pointer select-none"
     >
       {/* Gambar Project */}
       <div className="relative aspect-[16/10] w-full overflow-hidden bg-gradient-to-br from-white/5 via-white/[0.02] to-black/40">
@@ -66,25 +67,25 @@ export default function ProjectCarouselCard({ project, onClick }) {
         )}
 
         {/* Quarter Badge overlay */}
-        <div className="absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 backdrop-blur-sm border border-white/15">
-          <span className="font-sans text-[10px] lg:text-xs font-medium text-white/90 tracking-wide">
+        <div className="absolute top-3 left-3">
+          <Badge variant="default" className="bg-black/60 backdrop-blur-sm border-white/20 text-[11px]">
             {quarterYear} · {quarterLabel}
-          </span>
+          </Badge>
         </div>
 
         {/* Hover view indicator */}
-        <div className="absolute top-3 right-3 rounded-full bg-black/50 p-2 backdrop-blur-sm border border-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-white/80">
+        <div className="absolute top-3 right-3 rounded-md bg-black/50 p-1.5 backdrop-blur-sm border border-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 text-white/80">
           <LuExternalLink className="text-xs" aria-hidden="true" />
         </div>
       </div>
 
       {/* Konten Card */}
-      <div className="flex flex-1 flex-col justify-between p-4 lg:p-6">
+      <div className="flex flex-1 flex-col justify-between p-4 lg:p-5">
         <div>
-          <h3 className="mb-2 font-serif text-base lg:text-lg font-bold text-white tracking-normal line-clamp-1">
+          <h3 className="mb-1.5 font-serif text-base lg:text-lg font-bold text-white tracking-normal line-clamp-1">
             {title}
           </h3>
-          <p className="mb-4 font-sans text-xs lg:text-sm leading-relaxed text-white/60 line-clamp-2">
+          <p className="mb-3 font-sans text-xs leading-relaxed text-white/60 line-clamp-2">
             {description}
           </p>
         </div>
@@ -92,18 +93,16 @@ export default function ProjectCarouselCard({ project, onClick }) {
         {/* Teknologi */}
         <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
           {technologies.slice(0, 4).map((tech) => (
-            <span
+            <Badge
               key={tech}
-              className="rounded-full bg-white/8 px-2.5 py-1 font-sans text-[10px] lg:text-xs font-medium text-white/75 border border-white/5"
+              variant="secondary"
+              className="text-[10px] font-normal py-0 px-2 text-white/70"
             >
               {tech}
-            </span>
+            </Badge>
           ))}
         </div>
       </div>
-
-      {/* Hover glow */}
-      <div className="pointer-events-none absolute inset-0 rounded-2xl lg:rounded-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-t from-white/[0.03] to-transparent" />
     </div>
   )
 }
