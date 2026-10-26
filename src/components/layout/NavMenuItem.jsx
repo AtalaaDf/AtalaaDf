@@ -28,7 +28,7 @@ export default function NavMenuItem({
       >
         {IconComponent && (
           <IconComponent
-            className={`text-base transition-colors duration-200 ${
+            className={`text-base transition-colors duration- ${
               isActive ? 'text-white' : 'text-white/60 group-hover:text-white'
             }`}
             aria-hidden="true"

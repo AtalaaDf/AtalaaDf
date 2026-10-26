@@ -1,8 +1,6 @@
 
 import Navbar from './components/layout/Navbar'
-import HeroSection from './components/sections/hero/HeroSection'
-import ConnectorSection from './components/sections/connector/ConnectorSection'
-import AboutSection from './components/sections/about/AboutSection'
+import ScrollStage from './components/sections/stage/ScrollStage'
 import ProjectsSection from './components/sections/projects/ProjectsSection'
 import ContactSection from './components/sections/contact/ContactSection'
 import Footer from './components/layout/Footer'
@@ -13,9 +11,7 @@ function App() {
       <Navbar />
 
       <main>
-        <HeroSection />
-        <ConnectorSection />
-        <AboutSection />
+        <ScrollStage />
         <ProjectsSection />
         <ContactSection />
       </main>
