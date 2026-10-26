@@ -13,7 +13,7 @@ export default function PillButton({
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}
-      className={`inline-flex items-center justify-center rounded-full bg-chip font-sans text-white shadow-[0_6px_12px_rgba(0,0,0,0.5)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[0_10px_20px_rgba(0,0,0,0.65)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/50 active:translate-y-0 disabled:opacity-50 disabled:pointer-events-none cursor-pointer ${className}`}
+      className={`inline-flex items-center justify-center rounded-full border border-white/15 bg-chip px-7 py-3 font-sans text-sm font-medium text-white/90 backdrop-blur-sm transition-all duration-200 ease-out hover:border-white/30 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none cursor-pointer ${className}`}
       {...props}
     >
       {children}
