@@ -5,6 +5,7 @@ import { PROJECTS_QUARTERS_DATA } from '../../data/projects'
 export default function ProjectQuarterProvider({ children }) {
   const [activeQuarterIndex, setActiveQuarterIndex] = useState(0)
   const [isInProjects, setIsInProjects] = useState(false)
+  const [targetQuarter, setTargetQuarter] = useState(null)
 
   const selectedQuarterId = useMemo(() => {
     return PROJECTS_QUARTERS_DATA[activeQuarterIndex]?.id || 'q1'
@@ -15,6 +16,7 @@ export default function ProjectQuarterProvider({ children }) {
     if (foundIndex !== -1) {
       setActiveQuarterIndex(foundIndex)
     }
+    setTargetQuarter({ id, timestamp: Date.now() })
   }, [])
 
   return (
@@ -24,6 +26,7 @@ export default function ProjectQuarterProvider({ children }) {
         setActiveQuarterIndex,
         selectedQuarterId,
         setSelectedQuarterId,
+        targetQuarter,
         isInProjects,
         setIsInProjects,
         quartersData: PROJECTS_QUARTERS_DATA,
@@ -33,4 +36,3 @@ export default function ProjectQuarterProvider({ children }) {
     </ProjectQuarterContext.Provider>
   )
 }
-

@@ -80,7 +80,37 @@ export const PROJECTS_QUARTERS_DATA = [
     quarter: 'Quarter 4',
     title: '',
     isProgress: true,
-    progressText: 'ON PROGRES.....',
+    progressText: 'ON PROGRESS.....',
     projects: [],
   },
 ]
+
+// Susun seluruh item project dari data quarters dalam bentuk array datar (flat)
+export function getAllProjects(quartersData = PROJECTS_QUARTERS_DATA) {
+  const all = []
+  quartersData.forEach((quarter) => {
+    if (quarter.isProgress) {
+      all.push({
+        id: quarter.id,
+        quarterId: quarter.id,
+        title: quarter.title || quarter.quarter,
+        description: 'Project sedang dalam proses pengerjaan.',
+        isProgress: true,
+        progressText: quarter.progressText || 'ON PROGRESS.....',
+        quarterLabel: quarter.quarter,
+        quarterYear: quarter.year,
+        technologies: ['Coming Soon'],
+      })
+    } else if (quarter.projects?.length) {
+      quarter.projects.forEach((proj) => {
+        all.push({
+          ...proj,
+          quarterId: quarter.id,
+          quarterLabel: quarter.quarter,
+          quarterYear: quarter.year,
+        })
+      })
+    }
+  })
+  return all
+}

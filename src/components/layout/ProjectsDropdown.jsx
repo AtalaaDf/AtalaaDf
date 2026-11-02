@@ -15,7 +15,7 @@ const DROPDOWN_ICONS = {
 export default function ProjectsDropdown({ onSelectSection }) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef(null)
-  const { setSelectedQuarterId } = useProjectQuarter()
+  const { selectedQuarterId, setSelectedQuarterId } = useProjectQuarter()
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -49,7 +49,7 @@ export default function ProjectsDropdown({ onSelectSection }) {
 
   return (
     <div ref={dropdownRef} className="relative flex items-center">
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         <span className="font-sans text-sm font-semibold tracking-wide text-white">
           Projects
         </span>
@@ -64,7 +64,7 @@ export default function ProjectsDropdown({ onSelectSection }) {
         >
           <svg
             viewBox="0 0 24 24"
-            className={`h-3 w-3 fill-triangle-dark transition-transform duration-200 ${
+            className={`h-3 w-3 fill-white/80 transition-transform duration-200 ${
               isOpen ? 'rotate-90' : 'rotate-0'
             }`}
             aria-hidden="true"
@@ -76,52 +76,62 @@ export default function ProjectsDropdown({ onSelectSection }) {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.ul
+          <motion.div
             variants={dropdownVariants}
             initial="initial"
             animate="animate"
             exit="exit"
-            className="absolute top-[calc(100%+12px)] -right-2 hidden min-w-[140px] flex-col gap-1 rounded-2xl border border-white/20 bg-glass/95 p-1.5 shadow-2xl backdrop-blur-md lg:flex"
+            className="absolute top-[calc(100%+12px)] -right-2 sm:right-0 flex min-w-[190px] flex-col gap-1 rounded-2xl border border-white/20 bg-glass/95 p-2 shadow-2xl backdrop-blur-md z-50"
           >
+            {/* Header Quarters */}
+            <div className="px-2.5 pt-1 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/40">
+              Quarters
+            </div>
+            {PROJECTS_QUARTERS_DATA.map((quarter) => {
+              const isActive = selectedQuarterId === quarter.id
+              return (
+                <button
+                  key={quarter.id}
+                  type="button"
+                  onClick={() => handleSelectQuarter(quarter.id)}
+                  className={`flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-left font-sans text-xs font-medium transition-colors cursor-pointer ${
+                    isActive
+                      ? 'bg-white/20 text-white font-semibold'
+                      : 'text-white/80 hover:bg-white/15 hover:text-white'
+                  }`}
+                >
+                  <span className="flex items-center gap-1.5">
+                    {isActive && (
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    )}
+                    {quarter.quarter}
+                  </span>
+                  <span className="text-[10px] text-white/45">{quarter.year}</span>
+                </button>
+              )
+            })}
+
+            <div className="my-1 border-t border-white/10" />
+
+            {/* Header Navigasi Halaman */}
+            <div className="px-2.5 pt-1 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/40">
+              Navigasi Halaman
+            </div>
             {PROJECTS_DROPDOWN_LINKS.map((item) => {
               const IconComp = DROPDOWN_ICONS[item.id]
               return (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    onClick={() => handleSelect(item.id)}
-                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left font-sans text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer"
-                  >
-                    {IconComp && <IconComp className="text-sm shrink-0" aria-hidden="true" />}
-                    <span>{item.label}</span>
-                  </button>
-                </li>
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleSelect(item.id)}
+                  className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-left font-sans text-xs font-medium text-white/80 hover:bg-white/15 hover:text-white transition-colors cursor-pointer"
+                >
+                  {IconComp && <IconComp className="text-xs shrink-0" aria-hidden="true" />}
+                  <span>{item.label}</span>
+                </button>
               )
             })}
-          </motion.ul>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.ul
-            variants={dropdownVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="absolute top-[calc(100%+12px)] right-0 flex min-w-[190px] flex-col gap-1 rounded-2xl border border-white/20 bg-glass/95 p-1.5 shadow-2xl backdrop-blur-md lg:hidden"
-          >
-            {PROJECTS_QUARTERS_DATA.map((quarter) => (
-              <li key={quarter.id}>
-                <button
-                  type="button"
-                  onClick={() => handleSelectQuarter(quarter.id)}
-                  className="flex w-full items-center rounded-xl px-3 py-2 text-left font-sans text-xs font-medium text-white/80 transition-colors hover:bg-white/15 hover:text-white"
-                >
-                  Project {quarter.quarter}
-                </button>
-              </li>
-            ))}
-          </motion.ul>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
