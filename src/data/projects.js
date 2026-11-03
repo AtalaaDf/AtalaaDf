@@ -1,3 +1,9 @@
+import srifoton from '../assets/project/srifoton.png';
+import Midterm from '../assets/project/ProjectUTS.png';
+import IGRS from '../assets/project/IGRS.png';
+import Simbisnis from '../assets/project/Simbisnis.png';
+import FattahWo from '../assets/project/FattahWo.png';
+
 export const PROJECTS_QUARTERS_DATA = [
   {
     id: 'q1',
@@ -8,19 +14,11 @@ export const PROJECTS_QUARTERS_DATA = [
     projects: [
       {
         id: 'q1-p1',
-        title: 'Project 1',
-        description: 'Deskripsi project akan diisi oleh pemilik project. Menjelaskan fitur utama dan hasil yang dicapai.',
-        image: '',
-        technologies: ['React.Js', 'Tailwind', 'Node.Js'],
-        visitUrl: 'https://github.com/AtalaaDf',
-      },
-      {
-        id: 'q1-p2',
-        title: 'Project 2',
-        description: 'Deskripsi project akan diisi oleh pemilik project. Menjelaskan fitur utama dan hasil yang dicapai.',
-        image: '',
-        technologies: ['TypeScript', 'Express.js', 'Supabase'],
-        visitUrl: 'https://github.com/AtalaaDf',
+        title: 'Srifoton 2025',
+        description: 'A website for the annual information technology event organized by the Sriwijaya University Informatics Student Association. (NOW WEBSITE IS UPDATED)',
+        image: srifoton,
+        technologies: ['Next.Js', 'Tailwind'],
+        visitUrl: 'https://srifoton.hmifunsri.com/',
       },
     ],
   },
@@ -33,19 +31,19 @@ export const PROJECTS_QUARTERS_DATA = [
     projects: [
       {
         id: 'q2-p1',
-        title: 'Project 3',
-        description: 'Deskripsi project akan diisi oleh pemilik project. Menjelaskan fitur utama dan hasil yang dicapai.',
-        image: '',
-        technologies: ['React.Js', 'Tailwind'],
-        visitUrl: 'https://github.com/AtalaaDf',
+        title: 'Midterm Project GDGoC',
+        description: 'A movie database website that allows users to browse and search for their favorite films.',
+        image: Midterm,
+        technologies: ['React.Js', 'Tailwind', 'OMDB API'],
+        visitUrl: 'https://bigers-movie.vercel.app/',
       },
       {
         id: 'q2-p2',
-        title: 'Project 4',
-        description: 'Deskripsi project akan diisi oleh pemilik project. Menjelaskan fitur utama dan hasil yang dicapai.',
-        image: '',
-        technologies: ['Node.Js', 'Figma'],
-        visitUrl: 'https://github.com/AtalaaDf',
+        title: 'IGRS Redesign',
+        description: 'This project is a redesigned web application for the Indonesia Game Rating System (IGRS), based on the Regulation of the Minister of Communication and Informatics No. 2/2024.',
+        image: IGRS,
+        technologies: ['React.Js', 'Figma', 'Prisma ORM', 'MySQL', 'Tailwind'],
+        visitUrl: 'https://indonesia-game-rating-system.vercel.app/',
       },
     ],
   },
@@ -58,19 +56,19 @@ export const PROJECTS_QUARTERS_DATA = [
     projects: [
       {
         id: 'q3-p1',
-        title: 'Project 5',
-        description: 'Deskripsi project akan diisi oleh pemilik project. Menjelaskan fitur utama dan hasil yang dicapai.',
-        image: '',
-        technologies: ['TypeScript', 'Tailwind'],
-        visitUrl: 'https://github.com/AtalaaDf',
+        title: 'Simbisnis',
+        description: 'A business decision simulation tool for UMKM. SimBisnis projects the impact of hypothetical decisions.',
+        image: Simbisnis,
+        technologies: ['React.js', 'Tailwind', 'Supabase'],
+        visitUrl: 'https://simbisnis.vercel.app/',
       },
       {
         id: 'q3-p2',
-        title: 'Project 6',
-        description: 'Deskripsi project akan diisi oleh pemilik project. Menjelaskan fitur utama dan hasil yang dicapai.',
-        image: '',
-        technologies: ['Express.js', 'Supabase'],
-        visitUrl: 'https://github.com/AtalaaDf',
+        title: 'Fattah-Wo',
+        description: 'An application designed to streamline schedule management, worker assignments, and event reservations; created to fulfill the GDGoC Front-End Development final project.',
+        image: FattahWo,
+        technologies: ['React.js','Tailwind', 'Supabase'],
+        visitUrl: 'https://fattah-wo-app.vercel.app/',
       },
     ],
   },
