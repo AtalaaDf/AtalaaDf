@@ -19,7 +19,7 @@ export default function ProjectsSection() {
     <>
       <section
         id="projects"
-        className="relative w-full bg-base py-16 lg:py-24 overflow-hidden"
+        className="relative w-full bg-base pt-6 pb-16 lg:pt-10 lg:pb-24 overflow-hidden"
         aria-label="Section Projects"
       >
         <ProjectsHeader onNavClick={handleNavClick} />

@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
-import { SCROLL_STAGE_THRESHOLDS, SCROLL_WRAPPER_HEIGHT_VH } from '../data/scrollStages'
+import { CONNECTOR_STAGE_THRESHOLDS } from '../data/scrollStages'
 
 // Hook untuk mendeteksi stage aktif dan arah scroll berdasarkan progress wrapper
-export function useScrollStage(wrapperRef) {
-  const [stage, setStage] = useState(0)
+export function useScrollStage(wrapperRef, thresholds = CONNECTOR_STAGE_THRESHOLDS) {
+  const [stage, setStage] = useState(thresholds[0]?.stage ?? 1)
   const [direction, setDirection] = useState('down')
-  const prevStageRef = useRef(0)
+  const prevStageRef = useRef(thresholds[0]?.stage ?? 1)
 
   useEffect(() => {
     const wrapper = wrapperRef?.current
@@ -26,10 +26,10 @@ export function useScrollStage(wrapperRef) {
       const progress = Math.max(0, Math.min(1, scrolled / maxScroll))
 
       // Tentukan stage berdasarkan ambang batas
-      let newStage = 0
-      for (let i = SCROLL_STAGE_THRESHOLDS.length - 1; i >= 0; i--) {
-        if (progress >= SCROLL_STAGE_THRESHOLDS[i].threshold) {
-          newStage = SCROLL_STAGE_THRESHOLDS[i].stage
+      let newStage = thresholds[0]?.stage ?? 1
+      for (let i = thresholds.length - 1; i >= 0; i--) {
+        if (progress >= thresholds[i].threshold) {
+          newStage = thresholds[i].stage
           break
         }
       }
@@ -47,7 +47,7 @@ export function useScrollStage(wrapperRef) {
     return () => {
       window.removeEventListener('scroll', calculateStage)
     }
-  }, [wrapperRef])
+  }, [wrapperRef, thresholds])
 
   return { stage, direction }
 }
